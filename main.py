@@ -17,7 +17,7 @@ def translate_on_click():
     if text:
         translate(text, frame_output)
 
-button_translate = tk.Button(root, text="Translate to AAC", command=translate_on_click(), font=("Arial", 12), bg="lightblue")
+button_translate = tk.Button(root, text="Translate to AAC", command=translate_on_click, font=("Arial", 12), bg="lightblue")
 button_translate.pack(pady=10)
 
 frame_output = Frame(root)
