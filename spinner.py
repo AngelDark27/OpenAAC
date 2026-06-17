@@ -1,29 +1,39 @@
 import tkinter as tk
 
 class Spinner:
-    def __init__(self, master, text="Loading", size=20):
+    def __init__(self, master, text="Loading", size=20, y_position=50):
         self.master = master
         self.size = size
+        self.y_position = y_position
         self.text = text
         self.running = False
-        self.label = None
         self.frames = ["◐", "◓", "◑", "◒"]
         self.idx = 0
 
+        self.label = tk.Label(master, text="", font=("Arial", self.size))
+        self.label.place(relx=0.5, y=self.y_position, anchor="n")
+        self.label.place_forget()
+
+
     def start(self):
-        if self.label is None:
-            self.label = tk.Label(self.master, text="", font=("Arial", self.size))
-            self.label.pack(pady=5)
+        if self.running:
+            return
+
         self.running = True
+        self.idx = 0
+        self.label.place(relx=0.5, y=self.y_position, anchor="n")
         self._animate()
 
+
     def _animate(self):
-        if self.running:
-            self.label.config(text=f"{self.frames[self.idx]} {self.text}...")
-            self.idx = (self.idx + 1) % len(self.frames)
-            self.master.after(200, self._animate)
+        if not self.running:
+            return
+
+        self.label.config(text=f"{self.frames[self.idx]} {self.text}...")
+        self.idx = (self.idx + 1) % len(self.frames)
+        self.master.after(150, self._animate)
+
 
     def stop(self):
         self.running = False
-        if self.label:
-            self.label.pack_forget()
+        self.label.place_forget()
