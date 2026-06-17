@@ -2,9 +2,12 @@ import tkinter as tk
 from tkinter import scrolledtext, Frame
 from AAC_Translator import translate
 from spinner import Spinner
+from menu_bar import menu
 import threading
 
 is_processing = False
+
+
 
 def translate_thread(text):
     global is_processing
@@ -40,6 +43,10 @@ def translate_on_click():
     thread.daemon = True
     thread.start()
 
+def on_ctrl_t(event):
+    translate_on_click()
+    return "break"
+
 
 root = tk.Tk()
 root.title("OpenAAC")
@@ -59,6 +66,7 @@ frame_output.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
 button_translate = tk.Button(root, text="Translate to AAC", command=translate_on_click, font=("Arial", 12), bg="lightblue")
 button_translate.pack(pady=10)
 
+menu(root, text_input, frame_output, translate_on_click)
 
-
+text_input.bind("<Control-t>", on_ctrl_t)
 root.mainloop()
