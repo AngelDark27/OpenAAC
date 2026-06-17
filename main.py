@@ -1,13 +1,23 @@
+import platform
 import tkinter as tk
 from tkinter import scrolledtext, Frame
 from AAC_Translator import translate
 from spinner import Spinner
 from menu_bar import menu
 import threading
+import os
+import sys
 
 is_processing = False
 
 
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 def translate_thread(text):
     global is_processing
@@ -51,6 +61,13 @@ def on_ctrl_t(event):
 root = tk.Tk()
 root.title("OpenAAC")
 root.geometry("800x600")
+
+icon_path = resource_path("OpenACC.ico")
+root.iconbitmap(icon_path)
+if platform.system() == "Windows":
+    import ctypes
+    myappid = 'openacc.v1'
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 label_input = tk.Label(root, text="Write here:", font=("Arial", 12))
 label_input.pack(pady=5)
