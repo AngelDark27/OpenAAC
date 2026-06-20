@@ -124,7 +124,7 @@ def _search_arasaac(word, word_lower):
     print(f"searching {word}...")
     url = f"https://api.arasaac.org/api/pictograms/it/search/{word}"
     try:
-        response = responses.get(url)
+        response = requests.get(url)
         response.raise_for_status()
         data = response.json()
 

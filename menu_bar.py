@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import Menu, messagebox, filedialog
+from tkinter import Menu, messagebox, filedialog, simpledialog
 from AAC_Translator import (get_dicitonary, add_word, delete_word, import_dictionary, export_dictionary, merge_dictionary)
 
 def menu(root, text_widget, output_frame, translate_callback):
